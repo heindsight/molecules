@@ -93,6 +93,11 @@ switch_kernel() {
 	return 0
 }
 
+setup_lightdm_greeter() {
+	# Just use first available greeter
+	eselect lightdm set 1
+}
+
 setup_displaymanager() {
 	# determine what is the login manager
 	if [ -n "$(equo match --installed gnome-base/gdm -qv)" ]; then
@@ -101,6 +106,7 @@ setup_displaymanager() {
 		sd_enable lxdm
 	elif [ -n "$(equo match --installed x11-misc/lightdm-base -qv)" ]; then
 		sd_enable lightdm
+		setup_lightdm_greeter
 	elif [ -n "$(equo match --installed kde-base/kdm -qv)" ]; then
 		sd_enable kdm
   elif [ -n "$(equo match --installed x11-misc/sddm -qv)" ]; then
@@ -383,6 +389,10 @@ prepare_xfce() {
 	mv /etc/skel/.gconf/apps/awn-applet-taskmanager/{xfce-,}%gconf.xml
 }
 
+prepare_i3() {
+	setup_default_xsession "i3"
+}
+
 prepare_fluxbox() {
 	setup_default_xsession "fluxbox"
 }
@@ -430,6 +440,8 @@ prepare_system() {
 		prepare_xfce
 	elif [ "${de}" = "fluxbox" ]; then
 		prepare_fluxbox
+	elif [ "${de}" = "i3" ]; then
+		prepare_i3
 	elif [ "${de}" = "gnome" ]; then
 		prepare_gnome
 	elif [ "${de}" = "xfceforensic" ]; then

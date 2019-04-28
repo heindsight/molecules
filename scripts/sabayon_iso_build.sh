@@ -93,6 +93,8 @@ get_iso_name () {
     echo "Xfce"
   elif [ ${image} == "minimal" ] ; then
     echo "Minimal"
+  elif [ ${image} == "i3" ] ; then
+    echo "i3"
   elif [ ${image} == "server" ] ; then
     echo "Server"
   elif [ ${image} == "lxqt" ] ; then
@@ -192,6 +194,7 @@ prepare_env () {
         "mate"
         "xfce"
         "minimal"
+        "i3"
         "server"
         "lxqt"
         "tarball"
@@ -515,6 +518,7 @@ Available options:
                           * kde
                           * mate
                           * minimal
+                          * i3
                           * xfce
                           * lxqt
                           * tarball
@@ -562,6 +566,7 @@ SABAYON_ENMAN_REPOS     Define additional enman repository to install
       "kde"
       "mate"
       "minimal"
+      "i3"
       "xfce"
       "lxqt"
       "server"
